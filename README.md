@@ -1,2 +1,3 @@
 # APCS-2
-APCS second semester homework
+APCS Second Semester
+Classwork, Homework, Projects
