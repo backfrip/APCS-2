@@ -8,42 +8,67 @@ public class KnightsTour {
     final static String show = "\033[?25h";
 
     // the board
-    private int[][]board;
+    private int[][] board;
 
 
 
     // constructor
     public KnightsTour(int size) {
-	// TODO
+	board = new int[size][size];
     }
 
     // return the String representation of this tour
     public String toString() {
-	String ans = "\n";
-	
-	// TODO: Build Knight's Tour
-	
-	return hide + go(0,0) + ans + "\n" + show;
+	String ans = "";
+
+	for (int[] row : board) {
+	    ans += "\n";
+	    for (int n : row) {
+		if (n < 100)
+		    ans += " ";
+		if (n < 10)
+		    ans += " ";
+		ans += n;
+	    }
+	    ans += "\n";
+	}
+
+	return hide + go(0, 0) + ans + show;
     }
 
 
 
     // called to solve the Knight's Tour
     public void solve() {
-	// TODO
+	solve(0, 0, 1);
     }
 
     // called to solve the Knight's Tour from a certain position
     public void solve(int startx, int starty) {
-	// TODO
+	solve(startx, starty, 1);
     }
 
     // recursive helper for the solve() wrappers
     public boolean solve(int x, int y, int move) {
-	System.out.println(this);
-	wait(20);
-	
-	// TODO
+	// System.out.println(this);
+	// wait(20);
+
+	if (board.length <= x || x < 0 || board.length <= y || y < 0
+		|| board[y][x] != 0)
+	    return false;
+
+	board[y][x] = move;
+
+	if (solve(x + 2, y + 1, move + 1) || solve(x + 1, y + 2, move + 1)
+		|| solve(x + 2, y - 1, move + 1)
+		|| solve(x + 1, y - 2, move + 1)
+		|| solve(x - 2, y + 1, move + 1)
+		|| solve(x - 1, y + 2, move + 1)
+		|| solve(x - 2, y - 1, move + 1)
+		|| solve(x - 1, y - 2, move + 1))
+	    return true;
+
+	board[y][x] = 0;
 
 	return false;
     }
@@ -60,11 +85,17 @@ public class KnightsTour {
 	try {
 	    Thread.sleep(millis);
 	} catch (InterruptedException e) {
+	    // Nothing to C here!
 	}
     }
 
 
 
-    
+    public static void main(String[] args) {
+	KnightsTour tour = new KnightsTour(5);
 
-    
+	System.out.print(clear);
+	tour.solve();
+	System.out.println(tour);
+    }
+}
