@@ -49,9 +49,12 @@ public class KnightsTour {
     }
 
     // recursive helper for the solve() wrappers
-    public boolean solve(int x, int y, int move) {
+    private boolean solve(int x, int y, int move) {
 	// System.out.println(this);
-	// wait(20);
+	// wait(5);
+
+	if (move == board.length * board.length + 1)
+	    return true;
 
 	if (board.length <= x || x < 0 || board.length <= y || y < 0
 		|| board[y][x] != 0)
@@ -89,13 +92,19 @@ public class KnightsTour {
 	}
     }
 
+    // return student name
+    public String name() {
+	return "stringham.eric";
+    }
 
 
+
+    // main debugger
     public static void main(String[] args) {
 	KnightsTour tour = new KnightsTour(5);
 
 	System.out.print(clear);
-	tour.solve();
+	tour.solve(2, 2);
 	System.out.println(tour);
     }
 }
