@@ -5,43 +5,39 @@ public class makelake {
     static int[][] pasture, directions;
 
     public static void main(String[] args) throws Exception {
-	try {
-	    BufferedReader in = new BufferedReader(
-		    new FileReader("makelake.in"));
+	BufferedReader in = new BufferedReader(new FileReader("makelake.in"));
 
-	    String[] vars = in.readLine().split(" ");
-	    rows = Integer.parseInt(vars[0]);
-	    cols = Integer.parseInt(vars[1]);
-	    elevation = Integer.parseInt(vars[2]);
-	    N = Integer.parseInt(vars[3]);
+	String[] vars = in.readLine().split(" ");
+	rows = Integer.parseInt(vars[0]);
+	cols = Integer.parseInt(vars[1]);
+	elevation = Integer.parseInt(vars[2]);
+	N = Integer.parseInt(vars[3]);
 
-	    pasture = new int[rows][cols];
-	    directions = new int[N][3];
+	pasture = new int[rows][cols];
+	directions = new int[N][3];
 
-	    String[] line;
-	    for (int i = 0; i < rows; i++) {
-		line = in.readLine().split(" ");
-		for (int j = 0; j < cols; j++) {
-		    pasture[i][j] = Integer.parseInt(line[j]);
-		}
+	String[] line;
+	for (int i = 0; i < rows; i++) {
+	    line = in.readLine().split(" ");
+	    for (int j = 0; j < cols; j++) {
+		pasture[i][j] = Integer.parseInt(line[j]);
 	    }
-
-	    //printPasture();
-
-	    for (int i = 0; i < N; i++) {
-		line = in.readLine().split(" ");
-		for (int j = 0; j < 3; j++) {
-		    directions[i][j] = Integer.parseInt(line[j]);
-		}
-	    }
-
-	} catch (Exception e) {
-	    throw e;
 	}
 
+	for (int i = 0; i < N; i++) {
+	    line = in.readLine().split(" ");
+	    for (int j = 0; j < 3; j++) {
+		directions[i][j] = Integer.parseInt(line[j]);
+	    }
+	}
+
+	in.close();
+
 	makeLake();
-	//printPasture();
-	System.out.println(getVolume());
+
+	BufferedWriter out = new BufferedWriter(new FileWriter("makelake.out"));
+	out.write(new Integer(getVolume()).toString());
+	out.close();
     }
 
     static void printPasture() {
@@ -80,7 +76,7 @@ public class makelake {
 	    }
 	}
     }
-    
+
     static int getVolume() {
 	int depth = 0;
 	int addedDepth = 0;

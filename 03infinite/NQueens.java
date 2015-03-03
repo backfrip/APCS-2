@@ -1,18 +1,18 @@
 public class NQueens {
-    boolean[][] board;
+    int[][] board;
 
     // constuctor
     public NQueens(int size) {
-	board = new boolean[size][size];
+	board = new int[size][size];
     }
 
     // toString
     public String toString() {
 	String out = "";
-	for (boolean[] row : board) {
+	for (int[] rank : board) {
 	    out += "\n";
-	    for (boolean square : row) {
-		if (square)
+	    for (int space : rank) {
+		if (space == -1)
 		    out += "Q";
 		else
 		    out += "-";
@@ -31,62 +31,52 @@ public class NQueens {
 
     // solve the board starting from 0,0
     public boolean solve() {
-	return solve(0);
+	return solve(0, 0);
     }
 
     // solve the board starting from x in the first rank/file
     public boolean solve(int x) {
-	return solve(x, 0, 0);
+	return solve(0, x);
     }
 
-    private boolean solve(int rank, int file, int queens) {
-	if (queens == board.length)
+    public boolean solve(int rank, int file) {
+	if (rank == board.length)
 	    return true;
 
-	board[rank][file] = true;
+	if (board[rank][file] == 0) {
+	    board[rank][file] = -1;
 
-	for (int i = 0; i < board.length; i++) {
-	    if ((board[rank][i] && i != file)
-		    || (board[i][file] && i != rank)
-		    || (i != 0 && inRange(rank - i, file - i) && board[rank - i][file
-			    - i])
-		    || (i != 0 && inRange(rank - i, file + i) && board[rank - i][file
-			    + i])
-		    || (i != 0 && inRange(rank + i, file - i) && board[rank + i][file
-			    - i])
-		    || (i != 0 && inRange(rank + i, file + i) && board[rank + i][file
-			    + i])) {
-		System.out
-			.println("Target test failed at " + rank + "," + file);
-		board[rank][file] = false;
-		return false;
+	    for (int i = 1; i < board.length - rank; i++) {
+		board[rank + i][file] += 1;
+		if (file - i >= 0)
+		    board[rank + i][file - i] += 1;
+		if (file + i < board.length)
+		    board[rank + i][file + i] += 1;
 	    }
-	}
 
-	for (int i = file + 1; i < board.length; i++) {
-	    for (int j = 0; j < board.length; j++) {
-		if (solve(j, i, queens + 1))
-		    return true;
+	    if (solve(rank + 1, 0))
+		return true;
+
+	    for (int i = 1; i < board.length - rank; i++) {
+		board[rank + i][file] -= 1;
+		if (file - i >= 0)
+		    board[rank + i][file - i] -= 1;
+		if (file + i < board.length)
+		    board[rank + i][file + i] -= 1;
 	    }
-	}
 
-	System.out.println("Possibility test failed at " + rank + "," + file);
-	board[rank][file] = false;
+	    board[rank][file] = 0;
+	}
+	if (file < board.length - 1)
+	    return solve(rank, file + 1);
 	return false;
-    }
-
-    private boolean inRange(int r, int f) {
-	System.out.println(r + "," + f + " diagonal test value");
-	return r >= 0 && r < board.length && f >= 0 && f < board.length;
     }
 
 
 
     public static void main(String[] args) {
-	NQueens castle = new NQueens(5);
-	System.out.println(castle);
-
-	castle.solve();
-	System.out.println(castle);
+	NQueens ether = new NQueens(5);
+	ether.solve();
+	System.out.println(ether);
     }
 }
