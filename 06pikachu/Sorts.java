@@ -65,9 +65,26 @@ public class Sorts {
 
 	int[] c = new int[100000];
 	for (int i = 0; i < c.length; i++) {
-	    c[i] = (int)(Math.random() * 10);
+	    c[i] = (int) (Math.random() * 10);
 	}
+
+	int[] d = new int[c.length];
+	for (int i = 0; i < c.length; i++) {
+	    d[i] = c[i];
+	}
+
 	quicksort(c);
+	Arrays.sort(d);
+	//d[10] = d[10] + 2;
+
+	boolean chk = true;
+	for (int i = 0; i < c.length; i++) {
+	    if (chk && c[i] != d[i])
+		chk = false;
+	}
+
+	if (chk)
+	    System.out.println("Yay!");
     }
 
     private static void printFrag(String pre, int[] ary, int start, int end,
