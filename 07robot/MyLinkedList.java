@@ -1,42 +1,46 @@
 public class MyLinkedList {
-    private LNode head;
+    private LNode head, tail;
+    private int size;
     
     public MyLinkedList() {
-	super();
+	head = new LNode();
+	size = 0;
     }
-    
+
     public String toString() {
 	String out = "[";
-	LNode current = head;
-	while (current.getNext() != null) {
-	    out += current.getValue() + ",";
+	LNode temp = head.getNext();
+	for (int i = 0; i < size - 1; i++) {
+	    out += temp.getValue() + ", ";
+	    temp = temp.getNext();
 	}
-	return out + "]";
+	out += temp.getValue() + "]";
+	return out;
     }
-    
+
     public int get(int index) {
-	LNode current = head;
-	for (  ; index > 0; index--) {
-	    current = current.getNext();
+	return 0;
+    }
+
+    public boolean add(int value) {
+	LNode temp = head;
+	while (temp.getNext() != null) {
+	    temp = temp.getNext();
 	}
-	return current.getValue();
+	temp.setNext(new LNode(value));
+	size++;
+	return true;
     }
     
-    public void add(int value) {
-	LNode current = head;
-	while (current.getNext() != null) {
-	    current = current.getNext();
-	}
-	current.setNext(new LNode(value));
+    public boolean add(int index, int value) throws IndexOutOfBoundsException {
+	inBounds(index);
+	return true;
     }
     
-    public static void main(String[]args) {
-	LNode chk = new LNode(3);
-	System.out.println(chk.getValue());
-	System.out.println(chk.getNext());
-	
-	MyLinkedList fender = new MyLinkedList();
-	fender.add(1);
-	System.out.println(fender);
+    
+    
+    private void inBounds(int index) throws IndexOutOfBoundsException {
+	if (index < 0 || index > size)
+	    throw new IndexOutOfBoundsException();
     }
 }
