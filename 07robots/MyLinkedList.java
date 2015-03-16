@@ -11,7 +11,7 @@ public class MyLinkedList<E> implements Iterable<E> {
     }
 
 
-    // The toString
+    // The toString()
     public String toString() {
 	if (size == 0)
 	    return "[]";
@@ -23,6 +23,11 @@ public class MyLinkedList<E> implements Iterable<E> {
 	}
 	out += temp.getValue() + "]";
 	return out;
+    }
+    
+    // The name()
+    public String name() {
+	return "stringham.eric";
     }
 
 
