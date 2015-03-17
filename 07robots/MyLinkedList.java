@@ -196,7 +196,7 @@ public class MyLinkedList<E> implements Iterable<E> {
     // in accessing an Iterator. Primarily for large data sets.
     @Override
     public Iterator<E> iterator() {
-	Iterator<E> i = new Iterator<E>() {
+	return new Iterator<E>() {
 	    private LNode<E> temp = head.getNext();
 
 	    @Override
@@ -218,7 +218,6 @@ public class MyLinkedList<E> implements Iterable<E> {
 		throw new UnsupportedOperationException();
 	    }
 	};
-	return i;
     }
 
 }
