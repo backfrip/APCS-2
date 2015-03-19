@@ -34,12 +34,8 @@ public class MyLinkedList<E> implements Iterable<E> {
 
     // Alphabetically sorted class methods
     public boolean add(E value) {
-	LNode<E> temp = head;
-	while (temp.getNext() != null) {
-	    temp = temp.getNext();
-	}
-	tail = new LNode<E>(value);
-	temp.setNext(tail);
+	tail.setNext(new LNode<E>(value));
+	tail = tail.getNext();
 	size++;
 	return true;
     }
