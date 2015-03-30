@@ -10,5 +10,10 @@ public class Driver {
 	System.out.println(deck.removeFirst());
 	deck.addFirst(18);
 	System.out.println(deck);
+	System.out.println(deck.removeLast());
+	System.out.println(deck);
+	deck.removeFirst();
+	System.out.println(deck.getFirst());
+	System.out.println(deck.getLast());
     }
 }

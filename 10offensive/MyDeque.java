@@ -45,6 +45,23 @@ public class MyDeque<E> {
 	size -= 1;
 	return temp;
     }
+    
+    public E removeLast() {
+	if (size == data.length / 4)
+	    contract();
+	E temp = (E) data[(start + size - 1) % data.length];
+	data[(start + size - 1) % data.length] = null;
+	size -= 1;
+	return temp;
+    }
+    
+    public E getFirst() {
+	return (E) data[start];
+    }
+    
+    public E getLast() {
+	return (E) data[(start + size - 1) % data.length];
+    }
 
 
 
