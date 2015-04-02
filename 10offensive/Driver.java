@@ -1,5 +1,5 @@
 public class Driver {
-    public static void main(String[]args) {
+    public static void main(String[] args) {
 	MyDeque<Integer> deck = new MyDeque<Integer>(10);
 	for (int i = 0; i < 9; i++) {
 	    deck.addFirst(0);
@@ -15,5 +15,16 @@ public class Driver {
 	deck.removeFirst();
 	System.out.println(deck.getFirst());
 	System.out.println(deck.getLast());
+	deck.removeLast();
+	deck.removeLast();
+	deck.removeLast();
+	deck.removeLast();
+	deck.removeLast();
+	deck.removeLast();
+	deck.removeLast();
+	deck.removeLast();
+	deck.removeLast();
+	deck.removeLast();
+	System.out.println(deck);
     }
 }
