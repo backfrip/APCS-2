@@ -69,11 +69,16 @@ public class Maze {
     }
 
     public boolean solveBFS(boolean animate) {
-
+	solveBFS(0, 0);
 	return false;
     }
 
     public boolean solveBFS() {
 	return solveBFS(false);
+    }
+
+    // Do I need this? Don't think so, I'll use iterators.
+    private boolean solveBFS(int x, int y) {
+	return false;
     }
 }
