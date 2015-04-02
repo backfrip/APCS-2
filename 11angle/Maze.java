@@ -10,7 +10,7 @@ public class Maze {
     private static final String show="\033[?25h";private String go(int x,int y){return "\033["+x+";"+y+"H";}// @formatter:on
 
     private char[][] maze;
-    private int rows = 0, cols;
+    private int rows = 0, cols, sx, sy;
 
     public Maze(String filename) {
 	try {
@@ -24,8 +24,13 @@ public class Maze {
 	    in.reset();
 	    for (int i = 0; i < rows; i++) {
 		line = in.readLine();
-		for (int j = 0; j < cols; j++)
+		for (int j = 0; j < cols; j++) {
+		    if (line.charAt(j) == 'S') {
+			sy = i;
+			sx = j;
+		    }
 		    maze[i][j] = line.charAt(j);
+		}
 	    }
 	} catch (FileNotFoundException e) {
 	    System.err.println("File \"" + filename
@@ -45,21 +50,30 @@ public class Maze {
 	    System.exit(1);
 	}
     }
-    
+
     public String toString() {
 	String out = "";
 	for (char[] line : maze) {
-	    out +=  "\n";
+	    out += "\n";
 	    for (char space : line)
 		out += space + " ";
 	    out += "\n";
 	}
 	return out;
     }
-    
+
     public String toString(boolean animate) {
 	if (!animate)
 	    return toString();
 	return clear + hide + go(0, 0) + toString() + hide;
+    }
+
+    public boolean solveBFS(boolean animate) {
+
+	return false;
+    }
+
+    public boolean solveBFS() {
+	return solveBFS(false);
     }
 }
