@@ -44,6 +44,16 @@ public class Maze {
 		    + filename + "\"\nStopping...");
 	    System.exit(1);
 	}
-
+    }
+    
+    public String toString() {
+	String out = "";
+	for (char[] line : maze) {
+	    out +=  "\n";
+	    for (char space : line)
+		out += space + " ";
+	    out += "\n";
+	}
+	return out;
     }
 }
