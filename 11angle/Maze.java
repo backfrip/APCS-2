@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
 public class Maze {
     // @formatter:off
     private static final String clear="\033[2J";private static final String hide="\033[?25l";
-    private static final String show="\033[?25h";private String go(int x,int y){return "/033["+x+";"+y+"H";}// @formatter:on
+    private static final String show="\033[?25h";private String go(int x,int y){return "\033["+x+";"+y+"H";}// @formatter:on
 
     private char[][] maze;
     private int rows = 0, cols;
@@ -57,5 +57,9 @@ public class Maze {
 	return out;
     }
     
-    
+    public String toString(boolean animate) {
+	if (!animate)
+	    return toString();
+	return clear + hide + go(0, 0) + toString() + hide;
+    }
 }
