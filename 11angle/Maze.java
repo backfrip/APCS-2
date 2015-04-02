@@ -56,4 +56,6 @@ public class Maze {
 	}
 	return out;
     }
+    
+    
 }
