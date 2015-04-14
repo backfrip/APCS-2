@@ -10,7 +10,17 @@ public class Maze {
     private static final String show="\033[?25h";private String go(int x,int y){return "\033["+x+";"+y+"H";}// @formatter:on
 
     private char[][] maze;
-    private int rows = 0, cols, sx, sy;
+    private int rows = 0, cols;
+    private Space start, end;
+
+    private class Space {// @formatter:off
+	private int stepnum, ycor, xcor;
+	public Space(int xval, int yval) {this(xval, yval, 0);}
+	public Space(int xval, int yval, int stepval) {xcor = xval; ycor = yval; stepnum = stepval;}
+	public int x() {return xcor;} public void x(int xval) {x(xval);}
+	public int y() {return ycor;} public void y(int yval) {y(yval);}
+	public int step() {return stepnum;} public void step(int stepval) {step(stepval);}
+    } // @formatter:on
 
     public Maze(String filename) {
 	try {
@@ -26,8 +36,11 @@ public class Maze {
 		line = in.readLine();
 		for (int j = 0; j < cols; j++) {
 		    if (line.charAt(j) == 'S') {
-			sy = i;
-			sx = j;
+			start.y(i)
+			start.x(j);
+		    }
+		    if (line.charAt(j) == 'E') {
+			// copy
 		    }
 		    maze[i][j] = line.charAt(j);
 		}
