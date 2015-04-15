@@ -14,12 +14,11 @@ public class Maze {
     private Space start, end;
 
     private class Space {// @formatter:off
-	private int stepnum, ycor, xcor;
-	public Space(int xval, int yval) {this(xval, yval, 0);}
-	public Space(int xval, int yval, int stepval) {xcor = xval; ycor = yval; stepnum = stepval;}
-	public int x() {return xcor;} public void x(int xval) {x(xval);}
-	public int y() {return ycor;} public void y(int yval) {y(yval);}
-	public int step() {return stepnum;} public void step(int stepval) {step(stepval);}
+	private int stepnum, ycor, xcor, lastspace;
+	public int x() {return xcor;} public void x(int xval) {x=xval;}
+	public int y() {return ycor;} public void y(int yval) {y=yval;}
+	public int step() {return stepnum;} public void step(int stepval) {step=stepval;}
+	public Space last() {return lastspace;} public void last(Space last) {lastspace=last;}
     } // @formatter:on
 
     public Maze(String filename) {
