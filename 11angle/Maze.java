@@ -14,11 +14,14 @@ public class Maze {
     private Space start, end;
 
     private class Space {// @formatter:off
-	private int stepnum, ycor, xcor, lastspace;
-	public int x() {return xcor;} public void x(int xval) {x=xval;}
-	public int y() {return ycor;} public void y(int yval) {y=yval;}
-	public int step() {return stepnum;} public void step(int stepval) {step=stepval;}
-	public Space last() {return lastspace;} public void last(Space last) {lastspace=last;}
+	private int stepnum,xcor,ycor;private Space lastspace;
+	public Space(int xval,int yval){this(xval,yval,null,0);}
+	public Space(int xval,int yval,Space prev){this(xval,yval,prev,prev.step());}
+	public Space(int xval,int yval,Space prev,int stepNumber){x(xval);y(yval);last(prev);step(stepNumber);}
+	public int x(){return xcor;}public void x(int xval){xcor=xval;}
+	public int y(){return ycor;}public void y(int yval){ycor=yval;}
+	public int step(){return stepnum;}public void step(int stepval){stepnum=stepval;}
+	public Space last(){return lastspace;}public void last(Space last){lastspace=last;}
     } // @formatter:on
 
     public Maze(String filename) {
@@ -49,24 +52,12 @@ public class Maze {
 	}catch(StringIndexOutOfBoundsException e){System.err.println("Syntax error in first line of file \""+filename+"\"\nStopping...");System.exit(1);}
     } // @formatter:on
 
-    public String toString() {
-	String out = "";
-	for (char[] line : maze) {
-	    out += "\n";
-	    for (char space : line)
-		out += space;
-	}
-	return out;
-    }
-
-    public String toString(boolean animate) {
-	if (!animate)
-	    return toString();
-	return clear + hide + go(0, 0) + toString() + hide;
-    }
+    public String toString() {// @formatter:off
+	String out="";for(char[] line:maze){out+="\n";for(char space:line){out+=space;}}return out;
+    }public String toString(boolean animate){if(!animate)return toString();
+    return clear+hide+go(0,0)+toString()+hide;} // @formatter:on
 
     public boolean solveBFS(boolean animate) {
-	solveBFS(0, 0);
 	return false;
     }
 
@@ -74,11 +65,16 @@ public class Maze {
 	return solveBFS(false);
     }
 
+    public boolean solveDFS(boolean animate) {
+	return false;
+    }
+
     public boolean solveDFS() {
 	return solveDFS(false);
     }
 
-    public int solutionCoordinates() {
-	return {0, 0, 0};
+    public int[] solutionCoordinates() {
+	int[] a = { 0, 0, 0 };
+	return a;
     }
 }
