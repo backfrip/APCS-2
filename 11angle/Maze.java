@@ -75,8 +75,11 @@ public class Maze {
 	return solveBFS(false);
     }
 
-    // Do I need this? Don't think so, I'll use iterators.
-    private boolean solveBFS(int x, int y) {
-	return false;
+    public boolean solveDFS() {
+	return solveDFS(false);
+    }
+
+    public int solutionCoordinates() {
+	return {0, 0, 0};
     }
 }
