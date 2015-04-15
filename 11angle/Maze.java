@@ -25,7 +25,7 @@ public class Maze {
     public Maze(String filename) {
 	try {
 	    BufferedReader in = new BufferedReader(new FileReader(filename));
-	    in.mark(100);
+	    in.mark(10000);
 	    String line = in.readLine();
 	    cols = line.length();
 	    for (; line != null && !line.equals(""); rows++)
@@ -36,41 +36,26 @@ public class Maze {
 		line = in.readLine();
 		for (int j = 0; j < cols; j++) {
 		    if (line.charAt(j) == 'S') {
-			start.y(i)
-			start.x(j);
+			start = new Space(j, i);
 		    }
 		    if (line.charAt(j) == 'E') {
-			// copy
+			end = new Space(j, i);
 		    }
 		    maze[i][j] = line.charAt(j);
 		}
-	    }
-	} catch (FileNotFoundException e) {
-	    System.err.println("File \"" + filename
-		    + "\" not found!\nStopping...");
-	    System.exit(1);
-	} catch (IOException e) {
-	    System.err.println("Error reading file \"" + filename
-		    + "\"\nStopping...");
-	    System.err.println(e.getMessage());
-	} catch (NullPointerException e) {
-	    System.err.println("File \"" + filename
-		    + "\" is empty!\nStopping...");
-	    System.exit(1);
-	} catch (StringIndexOutOfBoundsException e) {
-	    System.err.println("Syntax error in first line of file \""
-		    + filename + "\"\nStopping...");
-	    System.exit(1);
-	}
-    }
+	    }// @formatter:off
+	}catch(FileNotFoundException e){System.err.println("File \""+filename+"\" not found!\nStopping...");System.exit(1);
+	}catch(IOException e){System.err.println("Error reading file \""+filename+"\"\nStopping...");System.err.println(e.getMessage());
+	}catch(NullPointerException e){System.err.println("File \""+filename+"\" is empty!\nStopping...");System.exit(1);
+	}catch(StringIndexOutOfBoundsException e){System.err.println("Syntax error in first line of file \""+filename+"\"\nStopping...");System.exit(1);}
+    } // @formatter:on
 
     public String toString() {
 	String out = "";
 	for (char[] line : maze) {
 	    out += "\n";
 	    for (char space : line)
-		out += space + " ";
-	    out += "\n";
+		out += space;
 	}
 	return out;
     }
