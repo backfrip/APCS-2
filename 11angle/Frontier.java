@@ -96,6 +96,17 @@ public class Frontier<E> {
 	return (E) data[(start + size - 1) % data.length];
     }
 
+    @SuppressWarnings("unchecked")
+    public E removeLeast() {
+	if (!priority)
+	    throw new RuntimeException("This is not a priority queue!");
+	checkEmpty();
+	// TODO: Find min value in priority and return the associated element;
+	// Move element at start to previous position
+    }
+
+    // TODO: removeGreatest()
+
 
 
     private void checkEmpty() throws NoSuchElementException {
