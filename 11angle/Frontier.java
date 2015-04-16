@@ -101,11 +101,40 @@ public class Frontier<E> {
 	if (!priority)
 	    throw new RuntimeException("This is not a priority queue!");
 	checkEmpty();
-	// TODO: Find min value in priority and return the associated element;
-	// Move element at start to previous position
+	int min = Integer.MAX_VALUE, index = 0;
+	for (int i = 0; i < size; i++) {
+	    if (prio[(start + i) % data.length] < min) {
+		index = (start + i) % data.length;
+		min = prio[index];
+	    }
+	}
+	E hold = (E) data[index];
+	data[index] = data[start];
+	prio[index] = prio[start];
+	start = (data.length + start + 1) % data.length;
+	size -= 1;
+	return hold;
     }
 
-    // TODO: removeGreatest()
+    @SuppressWarnings("unchecked")
+    public E removeGreatest() {
+	if (!priority)
+	    throw new RuntimeException("This is not a priority queue!");
+	checkEmpty();
+	int max = Integer.MIN_VALUE, index = 0;
+	for (int i = 0; i < size; i++) {
+	    if (prio[(start + i) % data.length] > max) {
+		index = (start + i) % data.length;
+		max = prio[index];
+	    }
+	}
+	E hold = (E) data[index];
+	data[index] = data[start];
+	prio[index] = prio[start];
+	start = (data.length + start + 1) % data.length;
+	size -= 1;
+	return hold;
+    }
 
 
 
