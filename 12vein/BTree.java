@@ -18,7 +18,7 @@ public class BTree<E> {
     }
 
     public void add(E data) {
-
+	add(root, new TreeNode<E>(data));
     }
 
     public void add(TreeNode<E> parent, TreeNode<E> child) {
@@ -31,5 +31,18 @@ public class BTree<E> {
 	    add(parent.getRight(), child);
 	else
 	    parent.setRight(child);
+    }
+    
+    public int getHeight() {
+	return getHeight(root);
+    }
+    
+    public int getHeight(TreeNode<E> parent) {
+	while (parent.has)
+    }
+    
+    public String toString() {
+	String out = root.getData();
+	
     }
 }

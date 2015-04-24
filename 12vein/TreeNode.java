@@ -21,10 +21,6 @@ public class TreeNode<T> {
 	right = rightChild;
     }
 
-    public String toString() {
-	return getLeft().getData() + " " + getData() + " " + getRight().getData();
-    }
-
     public void setData(T data) {
 	self = data;
     }
