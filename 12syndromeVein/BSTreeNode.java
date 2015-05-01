@@ -3,8 +3,8 @@ public class BSTreeNode<T extends Comparable> {
     private BSTreeNode<T> left;
     private BSTreeNode<T> right;
 
-    public BSTreeNode(T d) {
-	data = d;
+    public BSTreeNode(T dat) {
+	data = dat;
 	left = right = null;
     }
 
@@ -22,8 +22,8 @@ public class BSTreeNode<T extends Comparable> {
     }
 
     // Mutators
-    public void setData(T d) {
-	data = d;
+    public void setData(T dat) {
+	data = dat;
     }
 
     public void setLeft(BSTreeNode<T> l) {
