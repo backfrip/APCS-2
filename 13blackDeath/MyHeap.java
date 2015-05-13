@@ -40,13 +40,34 @@ public class MyHeap {
     }
 
     public void add(int val) {
-	count += 1;
+	count++;
 	data.add(count, val);
 	for (int i = count; compare(data.get(i), data.get(i / 2)) && i > 1; i = i / 2) {
 	    int t = data.get(i);
 	    data.set(i, data.get(i / 2));
 	    data.set(i / 2, t);
 	}
+    }
+
+    public int remove() {
+	count--;
+	int r = data.get(1);
+	data.set(1, data.remove(count));
+	for (int i = 1; i * 2 + 1 < count
+		&& (compare(data.get(i * 2), data.get(i)) || compa re(
+			data.get(i * 2 + 1), data.get(i)));) {
+	    int t = data.get(i);
+	    if (compare(data.get(i * 2), data.get(i))) {
+		data.set(i, data.get(i * 2));
+		data.set(i * 2, t);
+		i = i * 2;
+	    } else {
+		data.set(i, data.get(i * 2 + 1));
+		data.set(i * 2 + 1, t);
+		i = i * 2 + 1;
+	    }
+	}
+	return r;
     }
 
     private boolean compare(Integer one, Integer two) {
@@ -59,14 +80,13 @@ public class MyHeap {
     public static void main(String[] arg) {
 	MyHeap sickPeople = new MyHeap();
 	sickPeople.add(0);
-	System.out.println(sickPeople);
 	sickPeople.add(1);
-	System.out.println(sickPeople);
 	sickPeople.add(2);
-	System.out.println(sickPeople);
 	sickPeople.add(3);
-	System.out.println(sickPeople);
 	sickPeople.add(4);
+	System.out.println(sickPeople);
+	System.out.println(sickPeople.rawString());
+	sickPeople.remove();
 	System.out.println(sickPeople);
 	System.out.println(sickPeople.rawString());
     }
