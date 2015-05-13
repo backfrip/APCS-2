@@ -57,6 +57,10 @@ public class Maze {
     return clear+hide+go(0,0)+toString()+hide;} // @formatter:on
 
     public boolean solveBFS(boolean animate) {
+	// add start to list of prospective points
+	// while not solved
+	// pull a point from the Frontier, get prospective points (whilst
+	// checking for solvedness)
 	return false;
     }
 

@@ -3,7 +3,7 @@ import java.util.NoSuchElementException;
 public class Frontier<E> {
     private Object[] data;
     private int[] prio;
-    private int start, size;
+    private int start, size, minsize = 100;
     private boolean priority;
 
     public Frontier(boolean p, int cap) {
@@ -17,7 +17,7 @@ public class Frontier<E> {
     }
 
     public Frontier(boolean p) {
-	this(p, 10000);
+	this(p, 3);
     }
 
     public Frontier() {
@@ -68,7 +68,7 @@ public class Frontier<E> {
     @SuppressWarnings("unchecked")
     public E removeFirst() throws NoSuchElementException {
 	checkEmpty();
-	if (size == data.length / 4)
+	if (size == data.length / 4 && size >= minsize)
 	    resize(data.length / 2);
 	start = (data.length + start + 1) % data.length;
 	size -= 1;
@@ -78,7 +78,7 @@ public class Frontier<E> {
     @SuppressWarnings("unchecked")
     public E removeLast() {
 	checkEmpty();
-	if (size == data.length / 4)
+	if (size == data.length / 4 && size >= minsize)
 	    resize(data.length / 2);
 	size -= 1;
 	return (E) data[(start + size) % data.length];
@@ -101,6 +101,8 @@ public class Frontier<E> {
 	if (!priority)
 	    throw new RuntimeException("This is not a priority queue!");
 	checkEmpty();
+	if (size == data.length / 4 && size >= minsize)
+	    resize(data.length / 2);
 	int min = Integer.MAX_VALUE, index = 0;
 	for (int i = 0; i < size; i++) {
 	    if (prio[(start + i) % data.length] < min) {
@@ -121,6 +123,8 @@ public class Frontier<E> {
 	if (!priority)
 	    throw new RuntimeException("This is not a priority queue!");
 	checkEmpty();
+	if (size == data.length / 4 && size >= minsize)
+	    resize(data.length / 2);
 	int max = Integer.MIN_VALUE, index = 0;
 	for (int i = 0; i < size; i++) {
 	    if (prio[(start + i) % data.length] > max) {
@@ -136,6 +140,9 @@ public class Frontier<E> {
 	return hold;
     }
 
+    public void isPriority(boolean p) {
+	priority = p;
+    }
 
 
     private void checkEmpty() throws NoSuchElementException {
@@ -144,6 +151,8 @@ public class Frontier<E> {
     }
 
     private void resize(int cap) {
+	if (cap < minsize)
+	    cap = minsize;
 	Object[] temp = new Object[cap];
 	for (int i = 0; i < size; i++) {
 	    temp[i] = data[(start + i) % data.length];
