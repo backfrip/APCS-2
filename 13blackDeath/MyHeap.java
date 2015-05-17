@@ -51,23 +51,25 @@ public class MyHeap {
 
     public int remove() {
 	int r = data.get(1);
-	data.set(1, data.get(count));
+	data.set(1, data.remove(count));
 	count--;
-	for (int i = 2; i < count - 1
+	// System.out.println("count = " + count);
+	for (int i = 2; i < count + 1
 		&& (data.get(i / 2) < data.get(i) || data.get(i / 2) < data
 			.get(i + 1));) {
 	    int s = data.get(i / 2);
-	    System.out.println("i = " + i);
-	    System.out.println("s = " + s);
-	    if (data.get(i) > data.get(i + 1)) {
+	    // System.out.println("i = " + i);
+	    // System.out.println("s = " + s);
+	    if (count == i || data.get(i) > data.get(i + 1)) {
 		data.set(i / 2, data.get(i));
 		data.set(i, s);
 		i *= 2;
 	    } else {
 		data.set(i / 2, data.get(i + 1));
-		data.set(i, s);
+		data.set(i + 1, s);
 		i = (i + 1) * 2;
 	    }
+	    // System.out.println(i < count + 1);
 	}
 	return r;
     }
@@ -81,18 +83,22 @@ public class MyHeap {
 
     public static void main(String[] arg) {
 	MyHeap sickPeople = new MyHeap();
+	sickPeople.add(31);
 	sickPeople.add(0);
 	sickPeople.add(1);
 	sickPeople.add(2);
+	sickPeople.add(-23);
 	sickPeople.add(3);
 	sickPeople.add(4);
 	sickPeople.add(30);
 	sickPeople.add(-1);
 	System.out.println(sickPeople);
-	System.out.println(sickPeople.rawString());
-	System.out.println("\n" + sickPeople.remove() + "\n");
-	System.out.println(sickPeople);
+	System.out.println(sickPeople.rawString() + "\n");
+	System.out.println(sickPeople.remove());
+	System.out.println(sickPeople.remove());
+	System.out.println(sickPeople.remove());
+	System.out.println(sickPeople.remove());
+	System.out.println("\n" + sickPeople);
 	System.out.println(sickPeople.rawString());
     }
-
 }
